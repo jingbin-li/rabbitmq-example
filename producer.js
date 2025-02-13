@@ -13,9 +13,11 @@ async function sendMessage() {
     // 确保队列存在
     await channel.assertQueue(queue, { durable: false });
 
-    // 发送消息
-    channel.sendToQueue(queue, Buffer.from(msg));
-    console.log(`Sent: ${msg}`);
+    for (let i = 1; i <= 10; i++) {
+      // 发送消息
+      channel.sendToQueue(queue, Buffer.from(`${i}-${msg}`));
+      console.log(`Sent: ${i}-${msg}`);
+    }
 
     // 关闭连接
     setTimeout(() => {
